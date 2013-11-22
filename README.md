@@ -1,6 +1,8 @@
 Worldwide Seismic Design Tool
 =============================
 
+[![Build Status](https://api.travis-ci.org/usgs/earthquake-wwdesign.png)](https://travis-ci.org/usgs/earthquake-wwdesign)
+
 Displays seismic design data for locations around the world.
 
 This web application is designed to be developed locally on a developer's
