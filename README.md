@@ -6,8 +6,8 @@ Worldwide Seismic Design Tool
 Displays seismic design data for locations around the world.
 
 This web application is designed to be developed locally on a developer's
-desktop or laptop, and will later be deployed on the USGS Earthquake Hazards
-Program website.
+desktop or laptop, and will later be deployed on the [USGS Earthquake Hazards
+Program website](http://earthquake.usgs.gov/).
 
 Prerequisites
 -------------
