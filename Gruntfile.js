@@ -93,9 +93,9 @@ module.exports = function (grunt) {
 			options: {
 				hostname: 'localhost'
 			},
-			rules: {
-				'^/template/(.*)$': '/hazdev-template/src/htdocs/$1'
-			},
+			rules: [
+				{from:'^/theme/(.*)$', to:'/hazdev-template/src/htdocs/$1'}
+			],
 			dev: {
 				options: {
 					base: '<%= app.src %>/htdocs',
