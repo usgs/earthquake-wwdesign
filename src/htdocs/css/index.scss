@@ -1,6 +1,143 @@
-@import 'compass/css3';
+@import '/leaflet/dist/leaflet.css';
+@import '../../../node_modules/hazdev-tablist/src/tablist/TabList.scss';
 
 * {
-	@include box-sizing(border-box);
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+#application {
+	position:relative;
+	width:100%;
+	min-height:400px;
+	height:100%;
+
+	> .global-map-view {
+		position:absolute;
+		z-index:10;
+		top:38px; right:0; bottom:0; left:0;
+		margin:0;
+		padding:0;
+		border-color:#333;
+		border-width:1px;
+		border-style:none solid solid solid;
+	}
+
+	> .global-coordinate-view {
+		position:absolute;
+		top:0; right:0; left:0;
+		z-index:20;
+		height:38px;
+		background-color:#DDD;
+		margin:0 auto;
+		padding:8px;
+		border-color:#333;
+		border-width:1px;
+		border-style:solid solid none solid;
+
+		> label {
+			display:inline-block;
+			margin-right:8px;
+		}
+
+		> input {
+			display:inline-block;
+			width:50px;
+			margin-right:8px;
+		}
+
+	}
+
+	.leaflet-popup-scrolled {
+		border-top:none;
+		border-bottom:none;
+	}
+
+	.global-results {
+
+		> nav > .tablist-tab {
+			max-width: none;
+		}
+
+		> .tablist-panel {
+			max-height:185px;
+			overflow-y:auto;
+			margin-bottom:16px;
+
+			> h3 {
+				margin:0;
+			}
+
+			> .coordinates {
+				font-size:.9em;
+				color:#666;
+				font-style:italic;
+			}
+
+			> .ground_motion {
+				> dt {
+					display:inline-block;
+					font-weight:bold;
+					color:333;
+					margin-right:8px;
+
+					&:after {
+						content:':';
+					}
+				}
+
+				> dd {
+					display:inline-block;
+					margin:0;
+					&.ss { margin-right:16px;}
+				}
+			}
+		}
+
+		.description {
+			font-size:.9em;
+			color:#666;
+			padding:0;
+			margin:0;
+			line-height:1.25;
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	#application {
+		> .global-coordinate-view {
+			> label {
+				text-indent:-9999px;
+			}
+
+			> [for="gcv-latitude"]:after {
+				content:'Latitude';
+				position:relative;
+				left:9978px;
+			}
+
+			> [for="gcv-longitude"]:after {
+				content:'Longitude';
+				position:relative;
+				left:9978px;
+			}
+
+			> input {
+				margin-left:8px;
+				width:100px;
+			}
+		}
+	}
+}
+@media (min-height: 700px) {
+	#application {
+		min-height:500px;
+	}
+}
+@media (min-height: 900px) {
+	#application {
+		min-height:700px;
+	}
 }
 
