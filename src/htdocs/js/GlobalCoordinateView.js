@@ -30,6 +30,11 @@ define([
 		}
 	};
 
+	GlobalCoordinateView.prototype.reset = function () {
+		this._latitude.value = '';
+		this._longitude.value = '';
+	};
+
 
 
 	GlobalCoordinateView.prototype._initialize = function () {

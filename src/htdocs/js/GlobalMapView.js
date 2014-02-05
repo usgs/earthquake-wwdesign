@@ -17,13 +17,14 @@ define([
 	var ESRI_PREFIX = 'https://services.arcgisonline.com/ArcGIS/rest/services/';
 	var ESRI_SUFFIX = '/MapServer/tile/{z}/{y}/{x}';
 	var DEFAULTS = {
-
+		defaultExtent: [[70.0, -175.0], [-70.0, 175.0]],
+		noLocationText: 'Choose a location to see results.'
 	};
 
 	var GlobalMapView = function (options) {
 		Events.call(this);
 
-		options = Util.extend({}, DEFAULTS, options || {});
+		this._options = Util.extend({}, DEFAULTS, options || {});
 
 		this._el = options.el || document.createElement('div');
 		this._el.classList.add('global-map-view');
@@ -32,13 +33,20 @@ define([
 	};
 	GlobalMapView.prototype = Object.create(Events.prototype);
 
+	GlobalMapView.prototype.reset = function () {
+		this._marker.closePopup().setLatLng([0.0, 0.0]);
+		this._popup.setContent(this._options.noLocationText);
+		this._map.fitBounds(this._options.defaultExtent);
+	};
+
 	GlobalMapView.prototype._initialize = function () {
 		
 		var _this = this,
 		    layerControl = new L.Control.Layers(),
 		    satellite = null,
 		    street = null,
-		    greyscale = null;
+		    greyscale = null,
+		    ufcController = null;
 
 		// Create the map
 		this._map = new L.Map(this._el, {
@@ -60,14 +68,12 @@ define([
 		layerControl.addBaseLayer(greyscale, 'Greyscale');
 
 		// Set viewport to one instance of world
-		this._map.fitBounds([[70.0, -175.0], [-70.0, 175.0]]);
+		this._map.fitBounds(this._options.defaultExtent);
 
 		// UFC Layer (TODO :: Split these?)
-		var ufcController = new UfcLayer();
+		ufcController = new UfcLayer();
 		ufcController._layerGroup.addTo(this._map);
 		layerControl.addOverlay(ufcController._layerGroup, 'UFC Pins');
-
-		// TODO :: Region overlays
 
 		// Add the location maker
 		this._marker = new L.Marker([0.0, 0.0], {draggable: true});
@@ -79,12 +85,15 @@ define([
 		});
 
 		this._popup = new L.Popup({maxWidth:255,maxHeight:250});
+		this._popup.setContent(this._options.noLocationText);
 		this._marker.bindPopup(this._popup);
 
 		// Add some additional controls
 		this._map.addControl(layerControl);
+	};
 
-		
+	GlobalMapView.prototype.getMap = function () {
+		return this._map;
 	};
 
 	GlobalMapView.prototype.render = function (locationEvent) {
@@ -93,6 +102,7 @@ define([
 
 		// Update marker position
 		this._marker.setLatLng([latitude, longitude]);
+		this._marker.update();
 
 		// Zoom to a 10-degree map extent
 		this._map.fitBounds([
@@ -220,8 +230,5 @@ define([
 		return interpolatedResult;
 	};
 
-	// y = mx + b;
-	// m = (y2 - y1) / (x2 - x1);
-	// y = [(y2 - y1) / (x2 - x1)]*x + b;
 	return GlobalMapView;
 });

@@ -1,14 +1,18 @@
 /* global define */
 define([
 	'util/Util',
+	'mvc/ModalView',
 	'GlobalMapView',
 	'GlobalCoordinateView',
 	'GlobalCalculator',
+	'RegionController'
 ], function (
 	Util,
+	ModalView,
 	GlobalMapView,
 	GlobalCoordinateView,
-	GlobalCalculator
+	GlobalCalculator,
+	RegionController
 ) {
 	'use strict';
 
@@ -30,6 +34,7 @@ define([
 		options = Util.extend({}, DEFAULTS, options || {});
 
 		this._el = options.el || document.createElement('div');
+		this._currentLocation = {latitude: 0.0, longitude: 0.0};
 
 		options.coordinateView.el = this._el.appendChild(
 				document.createElement('div'));
@@ -43,16 +48,12 @@ define([
 		// Utility calculator that performs AJAX datamining
 		this._calculator = new GlobalCalculator(options.calculator);
 
-		// Bind listeners
-		this._mapView.on('location-change', this._coordinateView.render,
-				this._coordinateView);
-		this._coordinateView.on('location-change', this._mapView.render,
-			this._mapView);
+		// Region controller. Provides overlays and bounds checking
+		this._regionController = new RegionController({map: this._mapView._map});
 
-		this._mapView.on('location-change', this._calculator.calculate,
-				this._calculator);
-		this._coordinateView.on('location-change', this._calculator.calculate,
-			this._calculator);
+		// Bind listeners
+		this._mapView.on('location-change', this.onLocationChange, this);
+		this._coordinateView.on('location-change', this.onLocationChange, this);
 
 		this._calculator.on('results', function (results) {
 			// Make sure coordinate view is showing coordinates for these results
@@ -63,8 +64,35 @@ define([
 			// Show results in map view. TODO :: Should results be a first-class view?
 			_this._mapView.showResults(results);
 		});
+
 	};
 
+	GlobalDesignApplication.prototype.onLocationChange = function (point) {
+		var errorMessage = this._regionController.checkRegionPoint(point),
+		    modalWindow = null;
+
+		if (errorMessage) {
+			modalWindow = new ModalView(errorMessage, {
+				title: 'Better Results Available',
+				classes: ['modal-warning']
+			});
+			modalWindow.show();
+			
+			// Ensure all views still reflect old location
+			this._coordinateView.reset();
+			this._mapView.reset();
+		} else {
+			// Update the views
+			this._mapView.render(point);
+			this._coordinateView.render(point);
+
+			// Start the calculation
+			this._calculator.calculate(point);
+
+			// Update current location
+			this._currentLocation = point;
+		}
+	};
 
 	return GlobalDesignApplication;
 });
