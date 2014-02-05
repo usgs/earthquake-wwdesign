@@ -17,7 +17,7 @@ define([
 	var ESRI_PREFIX = 'https://services.arcgisonline.com/ArcGIS/rest/services/';
 	var ESRI_SUFFIX = '/MapServer/tile/{z}/{y}/{x}';
 	var DEFAULTS = {
-		defaultExtent: [[70.0, -175.0], [-70.0, 175.0]],
+		defaultExtent: [[60.0, -175.0], [-60.0, 175.0]],
 		noLocationText: 'Choose a location to see results.'
 	};
 
