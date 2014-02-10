@@ -84,8 +84,6 @@ module.exports = function (grunt) {
 			dist: [
 				'requirejs:dist',
 				'cssmin:dist',
-				'htmlmin:dist',
-				'uglify',
 				'copy'
 			]
 		},
@@ -93,9 +91,9 @@ module.exports = function (grunt) {
 			options: {
 				hostname: 'localhost'
 			},
-			rules: {
-				'^/template/(.*)$': '/hazdev-template/src/htdocs/$1'
-			},
+			rules: [
+				{from:'^/theme/(.*)$', to:'/hazdev-template/src/htdocs/$1'}
+			],
 			dev: {
 				options: {
 					base: '<%= app.src %>/htdocs',
@@ -118,11 +116,13 @@ module.exports = function (grunt) {
 				options: {
 					base: '<%= app.dist %>/htdocs',
 					port: 8081,
-					keepalive: true,
+					components: bowerConfig.directory,
 					middleware: function (connect, options) {
 						return [
 							mountPHP(options.base),
-							mountFolder(connect, options.base)
+							mountFolder(connect, options.base),
+							rewriteRulesSnippet,
+							mountFolder(connect, 'node_modules')
 						];
 					}
 				}
@@ -173,105 +173,132 @@ module.exports = function (grunt) {
 		requirejs: {
 			dist: {
 				options: {
-					name: 'index',
+					//appDir: appConfig.src + '/htdocs',
 					baseUrl: appConfig.src + '/htdocs/js',
+					//dir: appConfig.dist + '/htdocs',
 					out: appConfig.dist + '/htdocs/js/index.js',
-					optimize: 'uglify2',
-					mainConfigFile: appConfig.src + '/htdocs/js/index.js',
 					useStrict: true,
-					wrap: true,
+					wrap: false,
+					paths: {
+						'requireLib': '../../../bower_components/requirejs/require',
+						'util': '../../../bower_components/hazdev-webutils/src/util',
+						'mvc': '../../../bower_components/hazdev-webutils/src/mvc',
+						'leaflet': '../../../node_modules/leaflet/dist/leaflet',
+						'tablist': '../../../node_modules/hazdev-tablist/src/tablist/TabList'
+					},
+					name: 'index',
+					include: [
+						'requireLib'
+					],
+					optimize: 'uglify2',
+					/*
 					uglify2: {
 						report: 'gzip',
 						mangle: true,
 						compress: true,
 						preserveComments: 'some'
 					}
+					*/
 				}
 			}
 		},
 		cssmin: {
 			dist: {
+				options: {
+					processImport: false
+				},
 				files: {
 					'<%= app.dist %>/htdocs/css/index.css': [
+						process.cwd() + '/node_modules/leaflet/dist/leaflet.css',
 						'<%= app.src %>/htdocs/css/**/*.css',
 						'.tmp/css/**/*.css'
 					]
 				}
 			}
 		},
-		htmlmin: {
-			dist: {
-				options: {
-					collapseWhitespace: true
-				},
-				files: [{
-					expand: true,
-					cwd: '<%= app.src %>',
-					src: '**/*.html',
-					dest: '<%= app.dist %>'
-				}]
-			}
-		},
-		uglify: {
-			options: {
-				mangle: true,
-				compress: true,
-				report: 'gzip'
-			},
-			dist: {
-				files: {
-					'<%= app.dist %>/htdocs/lib/requirejs/require.js':
-							['<%= bower.directory %>/requirejs/require.js'],
-					'<%= app.dist %>/htdocs/lib/html5shiv/html5shiv.js':
-							['<%= bower.directory %>/html5shiv-dist/html5shiv.js']
-				}
-			}
-		},
 		copy: {
-			app: {
+			dist: {
 				expand: true,
-				cwd: '<%= app.src %>/htdocs',
-				dest: '<%= app.dist %>/htdocs',
+				cwd: '<%= app.src %>',
+				dest: '<%= app.dist %>',
 				src: [
-					'img/**/*.{png,gif,jpg,jpeg}',
-					'**/*.php'
+					'lib/*',
+					'conf',
+					'htdocs/_config.inc.php',
+					'htdocs/dataminer.php',
+					'htdocs/index.php',
+					'htdocs/overlays.php',
+					'htdocs/ufc.php',
+					'htdocs/ufc2json.inc.php',
+					'htdocs/xml2json.inc.php',
+					'htdocs/images/*'
 				]
 			},
-			conf: {
+			leafletimages: {
 				expand: true,
-				cwd: '<%= app.src %>/conf',
-				dest: '<%= app.dist/conf',
+				cwd: process.cwd() + '/node_modules/leaflet/dist/images',
+				dest: '<%= app.dist %>/htdocs/images',
 				src: [
-					'**/*',
-					'!**/*.orig'
-				]
-			},
-			lib: {
-				expand: true,
-				cwd: '<%= app.src %>/lib',
-				dest: '<%= app.dist %>/lib',
-				src: [
-					'**/*'
+					'*'
 				]
 			}
 		},
 		replace: {
-			dist: {
-				src: [
-					'<%= app.dist %>/htdocs/index.html',
-					'<%= app.dist %>/**/*.php'
-				],
+			// This is needed to deploy to old template ... sigh ... :(
+			templatedowngrade: {
 				overwrite: true,
+				src: [
+					'<%= app.dist %>/htdocs/*.php'
+				],
 				replacements: [
 					{
-						from: 'requirejs/require.js',
-						to: 'lib/requirejs/require.js'
+						from: 'include_once \'template.inc.php\';',
+						to: 'include_once $_SERVER[\'DOCUMENT_ROOT\'] . \'/template/template.inc.php\';'
 					},
 					{
-						from: 'html5shiv-dist/html5shiv.js',
-						to: 'lib/html5shiv/html5shiv.js'
+						from: 'include_once \'functions.inc.php\';',
+						to: 'include_once $_SERVER[\'DOCUMENT_ROOT\'] . \'/template/static/functions.inc.php\';'
+					},
+					{
+						from: '/* TEMPLATE_DOWNGRADE_FOOT_HACK */',
+						to: 'print $FOOT;'
 					}
 				]
+			},
+			html: {
+				overwrite: true,
+				src: [
+					'<%= app.dist %>/htdocs/*.php',
+					'<%= app.dist %>/htdocs/*.html',
+				],
+				replacements: [
+					{
+						from: '<script src="http://localhost:35729/livereload.js?snipver=1"></script>',
+						to: ''
+					},
+				]
+			},
+			css: {
+				overwrite: true,
+				src: [
+					'<%= app.dist %>/htdocs/css/*.css'
+				],
+				replacements: [
+					{from: 'images/layers.png', to: '../images/layers.png'},
+					{from: 'images/layers-2x.png', to: '../images/layers-2x.png'},
+					{from: '*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}',
+					 to: '#application *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}'},
+					{from: '@import url(../leaflet/dist/leaflet.css);', to: ''}
+				]
+			}
+		},
+		file_append: {
+			imagepath: {
+				files: {
+					'dist/htdocs/js/index.js': {
+						append: 'L.Icon.Default.imagePath = \'images\';'
+					}
+				}
 			}
 		},
 		open: {
@@ -307,8 +334,10 @@ module.exports = function (grunt) {
 		'concurrent:predist',
 		'concurrent:dist',
 		'replace',
-		'open:dist',
-		'connect:dist'
+		'file_append'
+		// 'connect:dist:keepalive',
+		// 'open:dist',
+
 	]);
 
 	grunt.registerTask('default', [
