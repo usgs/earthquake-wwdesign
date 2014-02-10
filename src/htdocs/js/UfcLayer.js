@@ -15,7 +15,7 @@ define([
 	var DEFAULTS = {
 		serviceUrl: 'ufc.php',
 		icon: new L.Icon({
-			iconUrl: 'img/ufc-large.png',
+			iconUrl: 'images/ufc-large.png',
 			iconSize: [9, 18],
 			iconAncor: [3, 17],
 			poupAncor: [4, -100]

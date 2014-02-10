@@ -12,6 +12,6 @@
 	fclose($ufc_fp);
 
 	header("Content-Type: application/json");
-	header('Expires: ' + gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT');
+	//header('Expires: ' + gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT');
 	print ufc2json($ufcraw);
 ?>

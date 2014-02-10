@@ -38,7 +38,8 @@
     "leaflet": "~0.7.0",
     "hazdev-template": "0.0.4",
     "grunt-connect-rewrite": "~0.2.1",
-    "hazdev-tablist": "0.0.2"
+    "hazdev-tablist": "0.0.2",
+    "grunt-file-append": "0.0.2"
   },
   "engines": {
     "node": ">=0.8.0"

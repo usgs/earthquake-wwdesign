@@ -17,7 +17,7 @@
 	);
 
 	header("Content-Type: application/json");
-	header('Expires: ' + gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT');
+	//header('Expires: ' + gmdate('D, d M Y H:i:s', time() + $expires) . ' GMT');
 
 	$xml = '';
 	while(($str=fread($fp, 1024))) {
