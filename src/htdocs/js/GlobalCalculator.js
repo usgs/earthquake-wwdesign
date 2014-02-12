@@ -49,7 +49,6 @@ define([
 			window.alert('The requested location returned no results');
 			return;
 		}
-console.log(jsonResult);
 		this.trigger('results', jsonResult);
 	};
 
