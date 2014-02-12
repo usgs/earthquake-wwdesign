@@ -225,7 +225,7 @@ define([
 		    weight = (x - x0) / (x1 - x0);
 
 		interpolatedResult.ss = y0.ss + ((y1.ss - y0.ss) * weight);
-		interpolatedResult.s1 = y0.s1 + ((y1.ss - y0.s1) * weight);
+		interpolatedResult.s1 = y0.s1 + ((y1.s1 - y0.s1) * weight);
 
 		return interpolatedResult;
 	};
