@@ -146,10 +146,10 @@ define([
 			'</span>',
 			'<dl class="ground_motion">',
 				'<dt class="ss">Ss</dt>',
-				'<dd class="ss">', interpResult.ss.toFixed(3), 'g</dd>',
+				'<dd class="ss">', interpResult.ss.toFixed(2), 'g</dd>',
 
 				'<dt class="s1">S1</dt>',
-				'<dd class="s1">', interpResult.s1.toFixed(3), 'g</dd>',
+				'<dd class="s1">', interpResult.s1.toFixed(2), 'g</dd>',
 			'</dl>',
 			'<p class="description">',
 				result.info_text,
