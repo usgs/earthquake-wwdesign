@@ -22,22 +22,22 @@
 	},
 	{
 		"r": "US",
-		"s": "The input location falls within the boundary for &ldquo;US&rdquo;. There are <a href=\"http://geohazards.usgs.gov/designmaps/us/application.php\" target=\"_blank\">more accurate results for locations within this region</a>. Please use the link above to access those results.",
+		"s": "Seismic design parameter values for sites within the U.S.A. and its territories can be accessed through the <a href=\"http://earthquake.usgs.gov/hazards/designmaps/usdesign.php\">U.S. Seismic Design Maps web application</a>.",
 		"p": [[50,-125],[24.6,-125],[24.6,-65],[50,-65]]
 	},
 	{
 		"r": "AK",
-		"s": "The input location falls within the boundary for &ldquo;AK&rdquo;. There are <a href=\"http://geohazards.usgs.gov/designmaps/us/application.php\" target=\"_blank\">more accurate results for locations within this region</a>. Please use the link above to access those results.",
+		"s": "Seismic design parameter values for sites within the U.S.A. and its territories can be accessed through the <a href=\"http://earthquake.usgs.gov/hazards/designmaps/usdesign.php\">U.S. Seismic Design Maps web application</a>.",
 		"p": [[72,-130],[50,-130],[50,-180],[72,-180]]
 	},
 	{
 		"r": "HI",
-		"s": "The input location falls within the boundary for &ldquo;HI&rdquo;. There are <a href=\"http://geohazards.usgs.gov/designmaps/us/application.php\" target=\"_blank\">more accurate results for locations within this region</a>. Please use the link above to access those results.",
+		"s": "Seismic design parameter values for sites within the U.S.A. and its territories can be accessed through the <a href=\"http://earthquake.usgs.gov/hazards/designmaps/usdesign.php\">U.S. Seismic Design Maps web application</a>.",
 		"p": [[23,-154],[18,-154],[18,-161],[23,-161]]
 	},
 	{
 		"r": "PR",
-		"s": "The input location falls within the boundary for &ldquo;PR&rdquo;. There are <a href=\"http://geohazards.usgs.gov/designmaps/us/application.php\" target=\"_blank\">more accurate results for locations within this region</a>. Please use the link above to access those results.",
+		"s": "Seismic design parameter values for sites within the U.S.A. and its territories can be accessed through the <a href=\"http://earthquake.usgs.gov/hazards/designmaps/usdesign.php\">U.S. Seismic Design Maps web application</a>.",
 		"p": [[19,-64.5],[17.5,-64.5],[17.5,-67.5],[19,-67.5]]
 	},
 
@@ -52,5 +52,15 @@
 	{
 		"r": "HA",
 		"p": [[20.15,-71.5],[20.15,-74.5],[18,-74.5],[18,-71.5]]
+	},
+	{
+		"r": "Guam",
+		"s": "Seismic design parameter values for sites within the U.S.A. and its territories can be accessed through the <a href=\"http://earthquake.usgs.gov/hazards/designmaps/usdesign.php\">U.S. Seismic Design Maps web application</a>.",
+		"p": [[23, 139],[23,151],[9,151],[9,139]]
+	},
+	{
+		"r": "AMSAM",
+		"s": "Seismic design parameter values for sites within the U.S.A. and its territories can be accessed through the <a href=\"http://earthquake.usgs.gov/hazards/designmaps/usdesign.php\">U.S. Seismic Design Maps web application</a>.",
+		"p": [[-11,-195],[-11,-165],[-33,-165],[-33,-195]]
 	}
 ]
