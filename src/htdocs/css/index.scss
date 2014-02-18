@@ -32,16 +32,13 @@
 		border-style:solid solid none solid;
 
 		> label {
-			display:inline-block;
 			margin-right:8px;
 		}
 
 		> input {
-			display:inline-block;
 			width:50px;
 			margin-right:8px;
 		}
-
 	}
 
 	.leaflet-popup-scrolled {
@@ -100,32 +97,6 @@
 	}
 }
 
-@media (min-width: 768px) {
-	#application {
-		> .global-coordinate-view {
-			> label {
-				text-indent:-9999px;
-			}
-
-			> [for="gcv-latitude"]:after {
-				content:'Latitude';
-				position:relative;
-				left:9978px;
-			}
-
-			> [for="gcv-longitude"]:after {
-				content:'Longitude';
-				position:relative;
-				left:9978px;
-			}
-
-			> input {
-				margin-left:8px;
-				width:100px;
-			}
-		}
-	}
-}
 @media (min-height: 700px) {
 	#application {
 		min-height:500px;
