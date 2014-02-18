@@ -118,10 +118,10 @@ define([
 			'</span>',
 			'<dl class="ground_motion">',
 				'<dt class="ss">Ss</dt>',
-				'<dd class="ss">', props.ss.toFixed(2), '</dd>',
+				'<dd class="ss">', props.ss.toFixed(2), 'g</dd>',
 
 				'<dt class="s1">S1</dt>',
-				'<dd class="s1">', props.s1.toFixed(2), '</dd>',
+				'<dd class="s1">', props.s1.toFixed(2), 'g</dd>',
 			'</dl>',
 			'<p class="description">',
 				meta.description,
