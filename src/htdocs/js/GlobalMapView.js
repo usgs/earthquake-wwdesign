@@ -84,7 +84,7 @@ define([
 					longitude: latlng.lng});
 		});
 
-		this._popup = new L.Popup({maxWidth:255,maxHeight:250});
+		this._popup = new L.Popup({minWidth:255,maxWidth:1000,maxHeight:250});
 		this._popup.setContent(this._options.noLocationText);
 		this._marker.bindPopup(this._popup);
 
@@ -119,24 +119,54 @@ define([
 
 	GlobalMapView.prototype._parseResultContent = function (results) {
 		var tabList = new TabList({tabPosition: 'top'}),
-		    i = 0, numResults = results.results.length;
+		    i = 0, numResults = results.results.length,
+		    el = document.createElement('div'),
+		    summary = [];
+
+		tabList.addTab({title: 'Summary', content: el});
+
+		summary = [
+			'<table>',
+				'<thead>',
+					'<tr>',
+						'<th scope="col">Dataset</th>',
+						'<th scope="col">Ss</th>',
+						'<th scope="col">S1</th>',
+					'</tr>',
+				'</thead>',
+				'<tbody>'
+		];
 
 		for (i = 0; i < numResults; i++) {
-			tabList.addTab(this._createTab(results.results[i], results.location));
+			tabList.addTab(this._createTab(summary, results.results[i],
+					results.location));
 		}
 
 		tabList.el.classList.add('global-results');
+
+		el.innerHTML = summary.join('') + '</tbody></table>';
+
 		return tabList.el;
 	};
 
-	GlobalMapView.prototype._createTab = function (result, reqLoc) {
+	GlobalMapView.prototype._createTab = function (summary, result, reqLoc) {
 		var tab = {title: result.display_text},
 		    title = result.description,
 		    interpResult = this._interpolateResult(result.points, reqLoc);
 
 		if (result.link !== '') {
-			title = '<a href="' + result.link + '" target="_blank">' + result.description + '</a>';
+			title = '<a href="' + result.link + '" target="_blank">' +
+					result.description + '</a>';
 		}
+
+		Array.prototype.push.apply(summary, [
+			'<tr>',
+				'<th scope="row">', result.display_text, '</th>',
+				'<td>', interpResult.ss.toFixed(2), '</td>',
+				'<td>', interpResult.s1.toFixed(2), '</td>',
+			'</tr>'
+		]);
+
 		tab.content = [
 			'<h3>', title, '</h3>',
 			'<span class="coordinates">',
