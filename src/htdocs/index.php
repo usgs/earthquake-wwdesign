@@ -3,6 +3,7 @@ if (!isset($TEMPLATE)) {
 	$TITLE = 'Worldwide Seismic Design Tool';
 
 	$HEAD = '<link rel="stylesheet" href="css/index.css"/>';
+	$NAVIGATION = true;
 
 	$FOOT = '
 		<script src="js/index.js"></script>
