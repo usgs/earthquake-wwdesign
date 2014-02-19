@@ -162,8 +162,8 @@ define([
 		Array.prototype.push.apply(summary, [
 			'<tr>',
 				'<th scope="row">', result.display_text, '</th>',
-				'<td>', interpResult.ss.toFixed(2), '</td>',
-				'<td>', interpResult.s1.toFixed(2), '</td>',
+				'<td>', interpResult.ss.toFixed(2), 'g</td>',
+				'<td>', interpResult.s1.toFixed(2), 'g</td>',
 			'</tr>'
 		]);
 

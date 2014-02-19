@@ -65,11 +65,24 @@ define([
 	UfcLayer.prototype._createMarker = function (feature) {
 		var coordinates = feature.geometry.coordinates,
 		    datasets = feature.properties.datasets,
-		    i = 0, numDatasets = datasets.length, dataset = null, tabList = null;
+		    i = 0, numDatasets = datasets.length, dataset = null, tabList = null,
+		    summaryContent = [], summaryEl = document.createElement('div');
 
 		var marker = new L.Marker([coordinates[1], coordinates[0]], {
 			icon: this._icon
 		});
+
+		summaryContent = [
+			'<table>',
+				'<thead>',
+					'<tr>',
+						'<th scope="col">Dataset</th>',
+						'<th scope="col">Ss</th>',
+						'<th scope="col">S1</th>',
+					'</tr>',
+				'</thead>',
+				'<tbody>'
+		];
 
 		if (numDatasets === 1) {
 			// No need for tabs
@@ -77,15 +90,28 @@ define([
 			marker.bindPopup(this._createTabContent(dataset, datasets[0],
 					coordinates));
 		} else {
+
 			tabList = new TabList({tabPosition: 'top'});
+			tabList.addTab({title: 'Summary', content: summaryEl});
 
 			for (i = 0; i < numDatasets; i++) {
 				dataset = this._datasets[datasets[i].dataset];
+
 				tabList.addTab({
 					title: this._createTabTitle(dataset),
 					content: this._createTabContent(dataset, datasets[i], coordinates)
 				});
+
+				Array.prototype.push.apply(summaryContent, [
+					'<tr>',
+						'<th scope="row">', dataset.shorttitle, '</th>',
+						'<td>', datasets[i].ss.toFixed(2), 'g</td>',
+						'<td>', datasets[i].s1.toFixed(2), 'g</td>',
+					'</tr>'
+				]);
 			}
+
+			summaryEl.innerHTML = summaryContent.join('') + '</tbody></table>';
 
 			tabList.el.classList.add('global-results');
 			marker.bindPopup(tabList.el);
