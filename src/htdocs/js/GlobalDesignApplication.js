@@ -68,8 +68,11 @@ define([
 	};
 
 	GlobalDesignApplication.prototype.onLocationChange = function (point) {
-		var errorMessage = this._regionController.checkRegionPoint(point),
+		var errorMessage = null,
 		    modalWindow = null;
+
+		errorMessage = this._regionController.checkRegionPoint(point);
+		point = this._normalizePoint(point);
 
 		if (errorMessage) {
 			modalWindow = new ModalView(errorMessage, {
@@ -92,6 +95,16 @@ define([
 			// Update current location
 			this._currentLocation = point;
 		}
+	};
+
+	GlobalDesignApplication.prototype._normalizePoint = function (point) {
+		while (point.longitude > 180.0) {
+			point.longitude -= 360.0;
+		}
+		while (point.longitude < -180.0) {
+			point.longitude += 360.0;
+		}
+		return point;
 	};
 
 	return GlobalDesignApplication;
