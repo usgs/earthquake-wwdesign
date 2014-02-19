@@ -69,7 +69,8 @@ define([
 		    summaryContent = [], summaryEl = document.createElement('div');
 
 		var marker = new L.Marker([coordinates[1], coordinates[0]], {
-			icon: this._icon
+			icon: this._icon,
+			title: datasets[0].title
 		});
 
 		summaryContent = [
