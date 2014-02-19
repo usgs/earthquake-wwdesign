@@ -12,16 +12,51 @@ if (isset($_SERVER['PWD'])) {
 	// windows doesn't provide $_SERVER['PWD']...
 	$LIB_DIR = getcwd();
 }
+
 $APP_DIR = dirname($LIB_DIR);
 $HTDOCS_DIR = $APP_DIR . DIRECTORY_SEPARATOR . 'htdocs';
 $CONF_DIR = $APP_DIR . DIRECTORY_SEPARATOR . 'conf';
 $HTTPD_CONF = $CONF_DIR . DIRECTORY_SEPARATOR . 'httpd.conf';
+$INI_CONF = $CONF_DIR . DIRECTORY_SEPARATOR . 'config.ini';
 
+if (!function_exists('prompt')) {
+	function prompt ($message, $default = null, $secure = false) {
+		$prompt = $message;
+		if ($default !== null) {
+			$prompt .= ' [' . $default . ']';
+		}
+		$prompt .= ': ';
+
+		print($prompt);
+		if ($secure) { system('stty -echo'); }
+		$answer = trim(fgets(STDIN));
+		if ($secure) { system ('stty echo'); print "\n"; }
+
+		if ($answer === '' && $default !== null) {
+			$answer = $default;
+		}
+
+		return $answer;
+	}
+}
+
+// Prompt for some configuration parameters
+$dsn = prompt('Enter database DSN', 'sqlite:' . $LIB_DIR . '/data.db');
+$username = prompt('Enter database username', 'web');
+$password = prompt('Enter database password', null, true);
+$schema = prompt('Enter database schema ');
 
 // create conf directory if it doesn't exist
 if (!is_dir($CONF_DIR)) {
 	mkdir($CONF_DIR, 0755, true /*recursive*/);
 }
+
+file_put_contents($INI_CONF,
+	'DB_DSN = ' . $dsn . "\n" .
+	'DB_SCHEMA = ' . $schema . "\n" .
+	'DB_USERNAME = ' . $username . "\n" .
+	'DB_PASSWORD = ' . $password . "\n" .
+);
 
 // write apache configuration
 file_put_contents($HTTPD_CONF, '
