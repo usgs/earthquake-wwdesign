@@ -225,6 +225,7 @@ module.exports = function (grunt) {
 					'lib/*',
 					'conf',
 					'htdocs/_config.inc.php',
+					'htdocs/_navigation.inc.php',
 					'htdocs/dataminer.php',
 					'htdocs/index.php',
 					'htdocs/overlays.php',
@@ -262,6 +263,14 @@ module.exports = function (grunt) {
 					{
 						from: '/* TEMPLATE_DOWNGRADE_FOOT_HACK */',
 						to: 'print $FOOT;'
+					},
+					{
+						from: '// print side_nav_',
+						to: 'print side_nav_'
+					},
+					{
+						from: 'navItem(',
+						to: 'side_nav_item('
 					}
 				]
 			},
