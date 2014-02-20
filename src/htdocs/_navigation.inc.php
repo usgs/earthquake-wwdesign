@@ -1,4 +1,5 @@
 <?php
+	include_once '../conf/config.inc.php';
 	$eq = 'http://earthquake.usgs.gov/hazards/designmaps';
 
 	// NB: Old template-style navigation stuff exists in this file but is
@@ -11,7 +12,7 @@
 
 	print
 		navItem("${eq}/wwdesign.php", 'Introduction') .
-		navItem("index.php", 'Use Application') .
+		navItem($CONFIG['MOUNT_PATH'] . '/', 'Use Application') .
 		navItem("${eq}/wwdesigndoc.php", "Documentation") .
 		navItem('http://www.usgs.gov/faq/?q=categories/9843',
 				'Frequently Asked Questions');
