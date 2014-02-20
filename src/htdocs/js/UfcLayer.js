@@ -90,8 +90,13 @@ define([
 		if (numDatasets === 1) {
 			// No need for tabs
 			dataset = this._datasets[datasets[i].dataset];
-			marker.bindPopup(this._createTabContent(dataset, datasets[0],
-					coordinates, this._computeQualityFlag(datasets[0])));
+			marker.bindPopup(
+				'<section class="global-results">' +
+					'<section class="tablist-panel selected">' +
+						this._createTabContent(dataset, datasets[0],
+								coordinates, this._computeQualityFlag(datasets[0])) +
+					'</section>' +
+				'</section>');
 		} else {
 
 			tabList = new TabList({tabPosition: 'top'});
@@ -108,11 +113,13 @@ define([
 				});
 
 				Array.prototype.push.apply(summaryContent, [
-					'<tr class="quality-', qualityFlag.toLowerCase(), '">',
+					'<tr>',
 						'<th scope="row">', dataset.shorttitle, '</th>',
 						'<td>', datasets[i].ss.toFixed(2), 'g</td>',
 						'<td>', datasets[i].s1.toFixed(2), 'g</td>',
-						'<td>', qualityFlag, '</td>',
+						'<td class="quality quality-', qualityFlag.toLowerCase(), '">',
+							qualityFlag,
+						'</td>',
 					'</tr>'
 				]);
 			}

@@ -48,26 +48,29 @@
 
 	.global-results {
 
-		.quality-nan {
-			color:#333;
-		}
-		.quality-red {
-			color:#D00;
-			text-shadow:1px 1px 0 #666;
-		}
-		.quality-yellow {
-			color:#FF0;
-			text-shadow:1px 1px 0 #666;
-		}
-		.quality-green {
-			color:#0D0;
-			text-shadow:1px 1px 0 #666;
-		}
-
 		> nav > .tablist-tab {
 			max-width: none;
+			padding:0;
 
+			&.selected {
+				box-shadow:none;
+			}
 
+			> span {
+				display:block;
+				padding:10px 15px;
+				background-image:linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1.0) 50%);
+
+				&.quality-red {
+					background-color:#D33;
+				}
+				&.quality-yellow {
+					background-color:#FD3;
+				}
+				&.quality-green {
+					background-color:#3C3;
+				}
+			}
 		}
 
 		> .tablist-panel {
@@ -99,8 +102,29 @@
 				> dd {
 					display:inline-block;
 					margin:0;
-					&.ss, &.s1 { margin-right:16px;}
+					&.ss, &.s1 {margin-right:16px;}
 				}
+			}
+		}
+
+		.quality {
+			padding:1px 3px;
+			border-width:1px;
+			border-style:solid;
+			border-color:transparent;
+			text-align:center;
+
+			&.quality-red {
+				background-color:#F99;
+				border-color:#C33;
+			}
+			&.quality-yellow {
+				background-color:#FF9;
+				border-color:#CC3;
+			}
+			&.quality-green {
+				background-color:#9F9;
+				border-color:#3C3;
 			}
 		}
 
