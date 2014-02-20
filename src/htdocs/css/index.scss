@@ -1,6 +1,7 @@
 @import url('../leaflet/dist/leaflet.css');
 @import '../../../node_modules/hazdev-tablist/src/tablist/TabList.scss';
 @import 'ModalView.scss';
+@import 'ResultFormatter.scss';
 
 #application {
 	position:relative;
@@ -40,127 +41,6 @@
 			margin-right:8px;
 		}
 	}
-
-	.leaflet-popup-content {
-		max-height:255px;
-		overflow-y:scroll;
-	}
-
-	.global-results {
-
-		> nav > .tablist-tab {
-			max-width: none;
-			padding:0;
-
-			&.selected {
-				box-shadow:none;
-			}
-
-			> span {
-				display:block;
-				padding:10px 15px;
-				background-image:linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1.0) 50%);
-
-				&.quality-red {
-					background-color:#D33;
-				}
-				&.quality-yellow {
-					background-color:#FD3;
-				}
-				&.quality-green {
-					background-color:#3C3;
-				}
-			}
-		}
-
-		> .tablist-panel {
-			max-width:300px;
-			margin-bottom:16px;
-
-			> h3 {
-				margin:0;
-			}
-
-			> .coordinates {
-				font-size:.9em;
-				color:#666;
-				font-style:italic;
-			}
-
-			> .ground_motion {
-				> dt {
-					display:inline-block;
-					font-weight:bold;
-					color:333;
-					margin-right:8px;
-
-					&:after {
-						content:':';
-					}
-				}
-
-				> dd {
-					display:inline-block;
-					margin:0;
-					&.ss, &.s1 {margin-right:16px;}
-				}
-			}
-		}
-
-		.quality {
-			padding:1px 3px;
-			border-width:1px;
-			border-style:solid;
-			border-color:transparent;
-			text-align:center;
-
-			&.quality-red {
-				background-color:#F99;
-				border-color:#C33;
-			}
-			&.quality-yellow {
-				background-color:#FF9;
-				border-color:#CC3;
-			}
-			&.quality-green {
-				background-color:#9F9;
-				border-color:#3C3;
-			}
-		}
-
-		table {
-			tbody th {
-				color: #666;
-			}
-			td, th {
-				padding: 0 8px;
-			}
-		}
-
-		.description {
-			font-size:.9em;
-			color:#666;
-			padding:0;
-			margin:0;
-			line-height:1.25;
-			white-space:normal;
-		}
-	}
-}
-
-@media (min-width: 768px) {
-	#application {
-		.global-results {
-			> nav {
-				white-space:nowrap;
-			}
-			> .tablist-panel {
-				max-width:none;
-				max-height:185px;
-				overflow-y:auto;
-			}
-		}
-	}
 }
 
 @media (min-height: 700px) {
@@ -173,4 +53,3 @@
 		min-height:700px;
 	}
 }
-

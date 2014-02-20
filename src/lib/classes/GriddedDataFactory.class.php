@@ -1,8 +1,5 @@
 <?php
 
-// NB: Performance results show multiple queries run faster than one big query.
-//     Maybe indexes could be optimized more for this...TODO
-
 class GriddedDataFactory {
 
 	private $metatable = 'metadata';
