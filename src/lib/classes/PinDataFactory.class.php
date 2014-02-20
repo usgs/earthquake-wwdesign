@@ -23,7 +23,7 @@ class PinDataFactory {
 				'description' => $row['description'],
 				'shorttitle' => $row['short_title'],
 				'title' => $row['title'],
-				'link' => $row['URL'],
+				'link' => $row['url'],
 				'code' => $row['code']
 			);
 		}

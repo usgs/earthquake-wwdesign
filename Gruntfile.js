@@ -223,7 +223,8 @@ module.exports = function (grunt) {
 				dest: '<%= app.dist %>',
 				src: [
 					'lib/*',
-					'conf',
+					'lib/classes/*',
+					'conf/config.inc.php',
 					'htdocs/_config.inc.php',
 					'htdocs/_navigation.inc.php',
 					'htdocs/dataminer.php',
