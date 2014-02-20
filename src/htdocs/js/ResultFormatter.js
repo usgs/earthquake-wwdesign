@@ -14,7 +14,12 @@ define([
 
 		if (numResults === 1) {
 			// Only one result. Skip summary tab.
-			// TODO
+			el.innerHTML = [
+				'<section class="tablist-panel selected">',
+					_createTabContent(results[0], results[0].points[0], data.location,
+							_computeQualityFlag(results[0])),
+				'</section>'
+			].join('');
 		} else {
 			// Multiple results. Create summary tab and loop over each result.
 			summaryMarkup = [
