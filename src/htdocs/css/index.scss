@@ -48,8 +48,26 @@
 
 	.global-results {
 
+		.quality-nan {
+			color:#333;
+		}
+		.quality-red {
+			color:#D00;
+			text-shadow:1px 1px 0 #666;
+		}
+		.quality-yellow {
+			color:#FF0;
+			text-shadow:1px 1px 0 #666;
+		}
+		.quality-green {
+			color:#0D0;
+			text-shadow:1px 1px 0 #666;
+		}
+
 		> nav > .tablist-tab {
 			max-width: none;
+
+
 		}
 
 		> .tablist-panel {
@@ -81,7 +99,7 @@
 				> dd {
 					display:inline-block;
 					margin:0;
-					&.ss { margin-right:16px;}
+					&.ss, &.s1 { margin-right:16px;}
 				}
 			}
 		}
