@@ -71,8 +71,9 @@ class PinDataFactory {
 			$pin['properties']['datasets'][] = array(
 				'dataset' => 'dataset_' . $row['metadata_id'],
 				'title' => $row['name'],
-				'ss' => floatval($row['SS']),
-				's1' => floatval($row['S1'])
+				'ss' => floatval($row['ss']),
+				's1' => floatval($row['s1']),
+				'quality' => $row['quality'] !== null ? intval($row['quality']) : null
 			);
 		}
 

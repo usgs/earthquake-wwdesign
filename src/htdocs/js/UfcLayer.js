@@ -65,6 +65,7 @@ define([
 	UfcLayer.prototype._createMarker = function (feature) {
 		var coordinates = feature.geometry.coordinates,
 		    datasets = feature.properties.datasets,
+		    qualityFlag = null,
 		    i = 0, numDatasets = datasets.length, dataset = null, tabList = null,
 		    summaryContent = [], summaryEl = document.createElement('div');
 
@@ -80,6 +81,7 @@ define([
 						'<th scope="col">Dataset</th>',
 						'<th scope="col">Ss</th>',
 						'<th scope="col">S1</th>',
+						'<th scope="col">Quality</th>',
 					'</tr>',
 				'</thead>',
 				'<tbody>'
@@ -89,25 +91,28 @@ define([
 			// No need for tabs
 			dataset = this._datasets[datasets[i].dataset];
 			marker.bindPopup(this._createTabContent(dataset, datasets[0],
-					coordinates));
+					coordinates, this._computeQualityFlag(datasets[0])));
 		} else {
 
 			tabList = new TabList({tabPosition: 'top'});
-			tabList.addTab({title: 'Summary', content: summaryEl});
+			tabList.addTab({title: '<span>Summary</span>', content: summaryEl});
 
 			for (i = 0; i < numDatasets; i++) {
 				dataset = this._datasets[datasets[i].dataset];
+				qualityFlag = this._computeQualityFlag(datasets[i]);
 
 				tabList.addTab({
-					title: this._createTabTitle(dataset),
-					content: this._createTabContent(dataset, datasets[i], coordinates)
+					title: this._createTabTitle(dataset, qualityFlag),
+					content: this._createTabContent(dataset, datasets[i],
+							coordinates, qualityFlag)
 				});
 
 				Array.prototype.push.apply(summaryContent, [
-					'<tr>',
+					'<tr class="quality-', qualityFlag.toLowerCase(), '">',
 						'<th scope="row">', dataset.shorttitle, '</th>',
 						'<td>', datasets[i].ss.toFixed(2), 'g</td>',
 						'<td>', datasets[i].s1.toFixed(2), 'g</td>',
+						'<td>', qualityFlag, '</td>',
 					'</tr>'
 				]);
 			}
@@ -121,11 +126,12 @@ define([
 		return marker;
 	};
 
-	UfcLayer.prototype._createTabTitle = function (dataset) {
-		return dataset.shorttitle;
+	UfcLayer.prototype._createTabTitle = function (dataset, q) {
+		return '<span class="quality-' + q.toLowerCase() + '">' +
+				dataset.shorttitle + '</span>';
 	};
 
-	UfcLayer.prototype._createTabContent = function (meta, props, coords) {
+	UfcLayer.prototype._createTabContent = function (meta, props, coords, q) {
 		var title = meta.title;
 
 		if (meta.link !== '') {
@@ -149,11 +155,28 @@ define([
 
 				'<dt class="s1">S1</dt>',
 				'<dd class="s1">', props.s1.toFixed(2), 'g</dd>',
+
+				'<dt class="quality">Quality</dt>',
+				'<dd class="quality quality-', q.toLowerCase(), '">', q, '</dt>',
 			'</dl>',
 			'<p class="description">',
 				meta.description,
 			'</p>'
 		].join('');
+	};
+
+	UfcLayer.prototype._computeQualityFlag = function (dataset) {
+		var quality = dataset.quality;
+
+		if (quality === 1) {
+			return 'Red';
+		} else if (quality === 2) {
+			return 'Yellow';
+		} else if (quality === 3) {
+			return 'Green';
+		} else {
+			return 'NaN'; // TODO :: Better options? Must be short
+		}
 	};
 
 	UfcLayer.prototype._formatLatitude = function (lat) {
