@@ -45,6 +45,7 @@ $dsn = prompt('Enter database DSN', 'sqlite:' . $LIB_DIR . '/data.db');
 $username = prompt('Enter database username', 'web');
 $password = prompt('Enter database password', null, true);
 $schema = prompt('Enter database schema ');
+$mountpath = prompt('Enter URL mount path', '/designmaps/ww');
 
 // create conf directory if it doesn't exist
 if (!is_dir($CONF_DIR)) {
@@ -52,10 +53,12 @@ if (!is_dir($CONF_DIR)) {
 }
 
 file_put_contents($INI_CONF,
-	'DB_DSN = ' . $dsn . "\n" .
-	'DB_SCHEMA = ' . $schema . "\n" .
-	'DB_USERNAME = ' . $username . "\n" .
-	'DB_PASSWORD = ' . $password . "\n" .
+	'MOUNT_PATH = \'' . $mountpath . "'\n\n" .
+
+	'DB_DSN = \'' . $dsn . "'\n" .
+	'DB_SCHEMA = \'' . $schema . "'\n" .
+	'DB_USERNAME = \'' . $username . "'\n" .
+	'DB_PASSWORD = \'' . $password . "'\n"
 );
 
 // write apache configuration
@@ -64,11 +67,11 @@ file_put_contents($HTTPD_CONF, '
 
 
 	# alias for application
-	Alias /wwdesignmaps ' . $HTDOCS_DIR . '
+	Alias ' . $mountpath . ' ' . $HTDOCS_DIR . '
 
 
 	# allow requests, and set default caching
-	<Location /wwdesignmaps>
+	<Location ' . $mountpath . '>
 		Order Allow,Deny
 		Allow From all
 
