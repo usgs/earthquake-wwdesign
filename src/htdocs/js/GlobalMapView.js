@@ -154,7 +154,7 @@ define([
 		    title = result.description,
 		    interpResult = this._interpolateResult(result.points, reqLoc);
 
-		if (result.link !== '') {
+		if (result.link !== null && result.link !== '') {
 			title = '<a href="' + result.link + '" target="_blank">' +
 					result.description + '</a>';
 		}
