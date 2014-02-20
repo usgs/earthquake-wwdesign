@@ -50,6 +50,8 @@
 			}
 
 			> .ground_motion {
+				margin:8px 0;
+
 				> dt {
 					display:inline-block;
 					font-weight:bold;
@@ -91,7 +93,10 @@
 		}
 
 		table {
-			tbody th {
+			> thead th {
+				font-weight:bold;
+			}
+			> tbody th {
 				color: #666;
 			}
 			td, th {

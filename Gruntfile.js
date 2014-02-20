@@ -211,7 +211,9 @@ module.exports = function (grunt) {
 					'<%= app.dist %>/htdocs/css/index.css': [
 						process.cwd() + '/node_modules/leaflet/dist/leaflet.css',
 						'<%= app.src %>/htdocs/css/**/*.css',
-						'.tmp/css/**/*.css'
+						'.tmp/css/ModalView.css',
+						'.tmp/css/ResultFormatter.css',
+						'.tmp/css/index.css'
 					]
 				}
 			}
@@ -296,8 +298,6 @@ module.exports = function (grunt) {
 				replacements: [
 					{from: 'images/layers.png', to: '../images/layers.png'},
 					{from: 'images/layers-2x.png', to: '../images/layers-2x.png'},
-					{from: '*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}',
-					 to: '#application *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}'},
 					{from: '@import url(../leaflet/dist/leaflet.css);', to: ''}
 				]
 			}
