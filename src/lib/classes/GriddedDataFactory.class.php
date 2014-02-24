@@ -27,11 +27,11 @@ class GriddedDataFactory {
 			JOIN
 				design_data AS d ON (
 					m.id = d.metadata_id AND
+					d.ss IS NOT NULL AND d.s1 IS NOT NULL AND
 					d.lat > :latitude - 1.0 AND d.lat < :latitude + 1.0 AND
 					d.lon > :longitude - 1.0 AND d.lon < :longitude + 1.0
 				)
 			WHERE
-				d.ss != null AND d.s1 != null AND
 				d.lat > :latitude - m.grid_spacing AND
 				d.lat < :latitude + m.grid_spacing AND
 				d.lon > :longitude - m.grid_spacing AND
