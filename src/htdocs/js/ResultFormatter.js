@@ -29,7 +29,7 @@ define([
 							'<th scope="col">Dataset</th>',
 							'<th scope="col">Ss</th>',
 							'<th scope="col">S1</th>',
-							'<th scope="col">Quality</th>',
+							'<th scope="col">Classification</th>',
 						'</tr>',
 					'</thead>',
 					'<tbody>'
@@ -109,7 +109,7 @@ define([
 				'<dt class="s1">S1</dt>',
 				'<dd class="s1">', data.s1.toFixed(2), 'g</dd>',
 
-				'<dt class="quality">Quality</dt>',
+				'<dt class="quality">Classification</dt>',
 				'<dd class="quality quality-', quality.toLowerCase(), '">',
 					quality,
 				'</dt>',
