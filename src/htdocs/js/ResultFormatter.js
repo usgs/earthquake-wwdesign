@@ -71,8 +71,8 @@ define([
 		return [
 			'<tr>',
 				'<th scope="row">', meta.display_text, '</th>',
-				'<td>', data.ss.toFixed(2), '</td>',
-				'<td>', data.s1.toFixed(2), '</td>',
+				'<td>', data.ss.toFixed(2), 'g</td>',
+				'<td>', data.s1.toFixed(2), 'g</td>',
 				'<td class="quality quality-', quality.toLowerCase(), '">',
 					quality,
 				'</td>',
