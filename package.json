@@ -36,7 +36,7 @@
     "mocha": "~1.9.0",
     "sinon": "~1.7.3",
     "leaflet": "~0.7.0",
-    "hazdev-template": "0.0.4",
+    "hazdev-template": "0.0.9",
     "grunt-connect-rewrite": "~0.2.1",
     "hazdev-tablist": "0.0.3",
     "grunt-file-append": "0.0.2"
