@@ -44,8 +44,11 @@ class GriddedDataFactory {
 	}
 
 	public function compute ($latitude, $longitude) {
-		$this->statement->bindParam(':latitude', floatval($latitude));
-		$this->statement->bindParam(':longitude', floatval($longitude));
+		$latitude = floatval($latitude);
+		$longitude = floatval($longitude);
+
+		$this->statement->bindParam(':latitude', $latitude);
+		$this->statement->bindParam(':longitude', $longitude);
 		$this->statement->execute();
 
 		$rows = $this->statement->fetchAll(PDO::FETCH_ASSOC);
