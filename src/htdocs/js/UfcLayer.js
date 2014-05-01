@@ -75,7 +75,7 @@ define([
 			}
 		);
 
-		marker.bindPopup(ResultFormatter.getMarkup(results));
+		marker.bindPopup(ResultFormatter.getMarkup(results), {'minWidth': '350'});
 
 		return marker;
 	};
