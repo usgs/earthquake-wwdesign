@@ -45,8 +45,7 @@ define([
 
 		if (jsonResult.status === 0) {
 			// Error
-			// TODO :: Improve this
-			window.alert('The requested location returned no results');
+			this.trigger('no-data', jsonResult);
 			return;
 		}
 		this.trigger('results', jsonResult);
