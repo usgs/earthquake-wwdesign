@@ -1,7 +1,6 @@
 #application {
 	.leaflet-popup-content {
 		max-height:255px;
-		max-width:300px;
 		overflow-y:auto;
 	}
 
@@ -54,7 +53,7 @@
 				margin:8px 0;
 
 				> dt {
-					display:block;
+					display:inline-block;
 					font-weight:bold;
 					color:333;
 					margin-right:8px;
@@ -65,10 +64,9 @@
 				}
 
 				> dd {
-					display:block;
-					margin:0 0 0 1em;
+					display:inline-block;
+					margin:0;
 					&.ss, &.s1 {margin-right:16px;}
-					&.quality {display: inline-block;}
 				}
 			}
 		}
@@ -78,6 +76,7 @@
 			border-width:1px;
 			border-style:solid;
 			border-color:transparent;
+			text-align:center;
 
 			&.quality-red {
 				background-color:#F99;
@@ -118,10 +117,6 @@
 
 @media (min-width: 768px) {
 	#application {
-		.leaflet-popup-content {
-		 	max-width: none; 
-		}
-
 		.global-results {
 			> nav {
 				white-space:nowrap;
@@ -130,22 +125,7 @@
 				max-width:none;
 				max-height:185px;
 				overflow-y:auto;
-				
-				> .ground_motion {
-					> dt {
-						display: inline-block;
-					}
-					
-					> dd {
-						display: inline-block;
-						margin: 0;
-					}
-				}
 			}
-		}
-
-		.quality {
-			text-align:center;
 		}
 	}
 }
