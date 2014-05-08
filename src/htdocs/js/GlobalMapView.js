@@ -53,7 +53,8 @@ define([
 		// Create the map
 		this._map = new L.Map(this._el, {
 			center: [0.0, 0.0],
-			zoom: 0
+			zoom: 0,
+			worldCopyJump: true
 		});
 
 		// Add map layers
