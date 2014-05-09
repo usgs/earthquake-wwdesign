@@ -26,7 +26,7 @@ define([
 				'<table>',
 					'<thead>',
 						'<tr>',
-							'<th scope="col">Source</th>',
+							'<th scope="col">Dataset</th>',
 							'<th scope="col">Ss</th>',
 							'<th scope="col">S1</th>',
 							'<th scope="col">Classification</th>',
