@@ -1,7 +1,8 @@
 #application {
 	.leaflet-popup-content {
 		max-height:255px;
-		overflow-y:scroll;
+		max-width:300px;
+		overflow-y:auto;
 	}
 
 	.global-results {
