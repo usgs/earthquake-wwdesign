@@ -85,7 +85,7 @@ define([
 					longitude: latlng.lng});
 		});
 
-		this._popup = new L.Popup({minWidth:255,maxWidth:1000,maxHeight:250});
+		this._popup = new L.Popup({minWidth:350,maxWidth:1000,maxHeight:250});
 		this._popup.setContent(this._options.noLocationText);
 		this._marker.bindPopup(this._popup);
 
