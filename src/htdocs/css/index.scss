@@ -3,6 +3,14 @@
 @import 'ModalView.scss';
 @import 'ResultFormatter.scss';
 
+.notification {
+	font-size: 80%;
+	margin: 1em 0;
+	padding: .5em;
+	background-color: #FFFFCC;
+	border: 1px dashed #666666;
+}
+
 #application {
 	position:relative;
 	width:100%;
