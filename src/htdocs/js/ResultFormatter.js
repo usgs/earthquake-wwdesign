@@ -23,6 +23,14 @@ define([
 		} else {
 			// Multiple results. Create summary tab and loop over each result.
 			summaryMarkup = [
+				'<h3>Summary</h3>',
+				'<span class="coordinates">',
+					(results[0].title) ? results[0].title + ' (' : '',
+					_formatLatitude(data.location.latitude),
+					', ',
+					_formatLongitude(data.location.longitude),
+					(results[0].title) ? ')' : '',
+				'</span>',
 				'<table>',
 					'<thead>',
 						'<tr>',
