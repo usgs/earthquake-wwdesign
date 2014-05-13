@@ -1,6 +1,6 @@
 <?php
 if (!isset($TEMPLATE)) {
-	$TITLE = 'Worldwide Seismic Design Tool';
+	$TITLE = 'Worldwide Seismic Design Tool (Beta)';
 
 	$HEAD = '<link rel="stylesheet" href="css/index.css"/>';
 	$NAVIGATION = true;
