@@ -54,7 +54,8 @@ define([
 		this._map = new L.Map(this._el, {
 			center: [0.0, 0.0],
 			zoom: 0,
-			worldCopyJump: true
+			worldCopyJump: true,
+			zoomAnimation:false
 		});
 
 		// Add map layers
@@ -86,7 +87,7 @@ define([
 					longitude: latlng.lng});
 		});
 
-		this._popup = new L.Popup({minWidth:350,maxWidth:1000,maxHeight:250});
+		this._popup = new L.Popup({autoPan:false,minWidth:350,maxWidth:1000,maxHeight:250});
 		this._popup.setContent(this._options.noLocationText);
 		this._marker.bindPopup(this._popup);
 
