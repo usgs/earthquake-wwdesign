@@ -87,6 +87,10 @@ define([
 		var i = 0, numRegions = this._skipRegions.length, region = null,
 		    pointArr = [point.latitude, point.longitude];
 
+		// Normalize longitude
+		while (pointArr[1] < -180.0) { pointArr[1] += 360.0; }
+		while (pointArr[1] > 180.0) { pointArr[1] -= 360.0; }
+
 		for (; i < numRegions; i++) {
 			region = this._skipRegions[i];
 			if (__contains(region.p, pointArr)) {
