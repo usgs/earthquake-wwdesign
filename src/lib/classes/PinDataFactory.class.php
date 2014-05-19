@@ -77,6 +77,8 @@ class PinDataFactory {
 			);
 		}
 
+		$data[] = $pin;
+
 		$results->closeCursor();
 
 		return $data;
