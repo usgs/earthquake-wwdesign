@@ -17,6 +17,12 @@
 	min-height:400px;
 	height:100%;
 
+	* {
+		-moz-box-sizing:border-box;
+		-webkit-box-sizing:border-box;
+		box-sizing:border-box;
+	}
+
 	> .global-map-view {
 		position:absolute;
 		z-index:10;
@@ -39,8 +45,6 @@
 		border-color:#333;
 		border-width:1px;
 		border-style:solid solid none solid;
-		-moz-boz-sizing:border-box;
-		box-sizing:border-box;
 
 		> label {
 			margin-right:8px;
