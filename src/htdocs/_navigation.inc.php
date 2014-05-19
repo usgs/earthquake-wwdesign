@@ -14,7 +14,7 @@
 		navItem("${eq}/wwdesign.php", 'Introduction') .
 		navItem($CONFIG['MOUNT_PATH'] . '/', 'Use Application') .
 		navItem('https://github.com/usgs/earthquake-wwdesign/wiki#sources-of-seismic-design-parameter-values',
-				"Documentation") .
+				"Documentation");
 
 	// print side_nav_footer();
 ?>
