@@ -20,6 +20,8 @@ define([
 							_computeQualityFlag(results[0])),
 				'</section>'
 			].join('');
+
+			el.classList.add('single-result');
 		} else {
 			// Multiple results. Create summary tab and loop over each result.
 			summaryMarkup = [
