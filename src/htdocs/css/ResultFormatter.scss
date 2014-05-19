@@ -7,6 +7,14 @@
 
 	.global-results {
 
+		&.single-result {
+			border-top:1px solid #666;
+
+			> .tablist-panel {
+				display:block;
+			}
+		}
+
 		> nav > .tablist-tab {
 			max-width: none;
 			padding:0;
@@ -38,7 +46,6 @@
 
 		> .tablist-panel {
 			max-width:300px;
-			margin-bottom:16px;
 
 			> h3 {
 				margin:0;
