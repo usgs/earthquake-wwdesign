@@ -65,7 +65,7 @@ define([
 			_this._mapView.showResults(results);
 		});
 
-		this._calculator.on('no-data', function (results) {
+		this._calculator.on('no-data', function (/*results*/) {
 			var error_message = 'The requested location returned no results.';
 			_this._mapView._popup.setContent(error_message)
 				.openOn(_this._mapView._map);
