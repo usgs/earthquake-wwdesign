@@ -108,8 +108,8 @@ define([
 
 		// Zoom to a 10-degree map extent
 		this._map.fitBounds([
-			[latitude + 5.0, longitude - 5.0],
-			[latitude - 5.0, longitude + 5.0]
+			[latitude + 7.5, longitude - 5.0],
+			[latitude - 2.5, longitude + 5.0]
 		]);
 	};
 
