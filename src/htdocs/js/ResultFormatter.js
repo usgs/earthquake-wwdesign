@@ -52,7 +52,7 @@ define([
 			// Inject summary tab to front of list
 			tabs[0] = {
 				title: '<span>Summary</span>',
-				content: summaryMarkup.join('') + '</tbody></thead>'
+				content: summaryMarkup.join('') + '</tbody></table>'
 			};
 
 			tabWidget = new TabList({el: el, tabs: tabs, tabPosition: 'top'});
