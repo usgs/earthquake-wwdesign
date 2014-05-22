@@ -52,7 +52,7 @@ define([
 			infoMarkup = [
 				'<p class="description">',
 					'The classification is based on the ',
-					'<a href="https://github.com/usgs/earthquake-wwdesign/wiki">',
+					'<a href="https://github.com/usgs/earthquake-wwdesign/wiki/Worldwide-Seismic-Design-Tool-Documentation">',
 					'recency and breadth of the seismic hazard analysis</a> ',
 					'from each underlying source.',
 				'</p>'
