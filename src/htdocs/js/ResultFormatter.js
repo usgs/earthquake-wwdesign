@@ -37,8 +37,8 @@ define([
 					'<thead>',
 						'<tr>',
 							'<th scope="col">Source</th>',
-							'<th scope="col">Ss</th>',
-							'<th scope="col">S1</th>',
+							'<th scope="col">S<sub>S</sub></th>',
+							'<th scope="col">S<sub>1</sub></th>',
 							'<th scope="col">Classification</th>',
 						'</tr>',
 					'</thead>',
@@ -123,10 +123,10 @@ define([
 				(meta.title) ? ')' : '',
 			'</span>',
 			'<dl class="ground_motion">',
-				'<dt class="ss">Ss</dt>',
+				'<dt class="ss">S<sub>S</sub></dt>',
 				'<dd class="ss">', data.ss.toFixed(2), 'g</dd>',
 
-				'<dt class="s1">S1</dt>',
+				'<dt class="s1">S<sub>1</sub></dt>',
 				'<dd class="s1">', data.s1.toFixed(2), 'g</dd>',
 
 				'<dt class="quality">Classification</dt>',
