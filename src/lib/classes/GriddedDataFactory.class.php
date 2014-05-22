@@ -27,7 +27,6 @@ class GriddedDataFactory {
 			JOIN
 				design_data AS d ON (
 					m.id = d.metadata_id AND
-					d.ss IS NOT NULL AND d.s1 IS NOT NULL AND
 					d.lat > :latitude - 1.0 AND d.lat < :latitude + 1.0 AND
 					d.lon > :longitude - 1.0 AND d.lon < :longitude + 1.0
 				)
@@ -57,6 +56,14 @@ class GriddedDataFactory {
 		$data = null;
 
 		foreach ($rows as $row) {
+			// If one of the Ss/S1 values is null, return no results.
+			if ($row['ss'] === null || $row['s1'] === null) {
+				// Reset results and deallocate arrays.
+				$results = array();
+				$data = null;
+				$numResults = 0;
+				break;
+			}
 
 			if ($data === null || $data['datasetid'] !== $row['id']) {
 

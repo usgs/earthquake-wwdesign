@@ -10,7 +10,7 @@ define([
 		var results = data.results,
 		    i = 0, numResults = results.length,
 		    el = document.createElement('section'),
-		    summaryMarkup = null, tabs = [null], tabWidget = null;
+		    summaryMarkup = null, infoMarkup = null, tabs = [null], tabWidget = null;
 
 		if (numResults === 1) {
 			// Only one result. Skip summary tab.
@@ -25,6 +25,14 @@ define([
 		} else {
 			// Multiple results. Create summary tab and loop over each result.
 			summaryMarkup = [
+				'<h3>Summary</h3>',
+				'<span class="coordinates">',
+					(results[0].title) ? results[0].title + ' (' : '',
+					_formatLatitude(data.location.latitude),
+					', ',
+					_formatLongitude(data.location.longitude),
+					(results[0].title) ? ')' : '',
+				'</span>',
 				'<table>',
 					'<thead>',
 						'<tr>',
@@ -41,10 +49,20 @@ define([
 				tabs.push(_createTab(results[i], data.location, summaryMarkup));
 			}
 
+			infoMarkup = [
+				'<p class="description">',
+					'The classification is based on the ',
+					'<a href="https://github.com/usgs/earthquake-wwdesign/wiki">',
+					'recency and breadth of the seismic hazard analysis</a> ',
+					'from each underlying source.',
+				'</p>'
+			];
+
 			// Inject summary tab to front of list
 			tabs[0] = {
 				title: '<span>Summary</span>',
-				content: summaryMarkup.join('') + '</tbody></thead>'
+				content: summaryMarkup.join('') + '</tbody></table>' +
+						infoMarkup.join('')
 			};
 
 			tabWidget = new TabList({el: el, tabs: tabs, tabPosition: 'top'});
