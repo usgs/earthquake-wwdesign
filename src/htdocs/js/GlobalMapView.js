@@ -78,7 +78,7 @@ define([
 		ufcController._layerGroup.addTo(this._map);
 		layerControl.addOverlay(ufcController._layerGroup, 'UFC Pins');
 
-		// Add the location maker
+		// Add the location marker
 		this._marker = new L.Marker([0.0, 0.0], {draggable: true});
 		this._marker.addTo(this._map);
 		this._marker.on('dragend', function () {
@@ -92,6 +92,7 @@ define([
 		this._marker.bindPopup(this._popup);
 
 		// Add some additional controls
+		this._layerControl = layerControl;
 		this._map.addControl(layerControl);
 	};
 
