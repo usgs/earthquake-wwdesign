@@ -57,7 +57,7 @@ define([
 		return contains;
 	};
 
-	var RegionController = function (layerControl, options) {
+	var RegionController = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
 
 		this._serviceUrl = options.serviceUrl;
@@ -66,8 +66,9 @@ define([
 		this._overlaysLoaded = false;
 		this._polyOpts = options.polyOpts;
 		this._skipRegions = [];
+		this._layerControl = options.layerControl;
 
-		this._initialize(layerControl);
+		this._initialize();
 	};
 
 	RegionController.prototype.ready = function () {
@@ -109,13 +110,13 @@ define([
 		}
 	};
 
-	RegionController.prototype._initialize = function (layerControl) {
+	RegionController.prototype._initialize = function () {
 		var _this = this;
 
 		Xhr.ajax({
 			url: this._serviceUrl,
 			success: function (response) {
-				_this._onSuccess(response, layerControl);
+				_this._onSuccess(response);
 			},
 			error: function (response) {
 				this._onError(response);
@@ -123,7 +124,7 @@ define([
 		});
 	};
 
-	RegionController.prototype._onSuccess = function (response, layerControl) {
+	RegionController.prototype._onSuccess = function (response) {
 		var i = 0, numRegions = response.length, overlay = null, info;
 
 		for (; i < numRegions; i++) {
@@ -137,7 +138,7 @@ define([
 				overlay = new L.Polygon(info.p, this._polyOpts);
 
 				this._overlays.push(overlay);
-				layerControl.addOverlay(overlay, info.n);
+				this._layerControl.addOverlay(overlay, info.n);
 
 				// Enable overlay
 				if (this._map) {

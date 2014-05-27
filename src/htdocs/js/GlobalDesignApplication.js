@@ -49,7 +49,8 @@ define([
 		this._calculator = new GlobalCalculator(options.calculator);
 
 		// Region controller. Provides overlays and bounds checking
-		this._regionController = new RegionController(this._mapView._layerControl, {map: this._mapView._map});
+		this._regionController = new RegionController({map: this._mapView._map,
+				layerControl: this._mapView._layerControl});
 
 		// Bind listeners
 		this._mapView.on('location-change', this.onLocationChange, this);
