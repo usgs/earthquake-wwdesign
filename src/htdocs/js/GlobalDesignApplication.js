@@ -50,7 +50,7 @@ define([
 
 		// Region controller. Provides overlays and bounds checking
 		this._regionController = new RegionController({map: this._mapView._map,
-				layerControl: this._mapView._layerControl});
+				layerControl: this._mapView.getLayerControl()});
 
 		// Bind listeners
 		this._mapView.on('location-change', this.onLocationChange, this);

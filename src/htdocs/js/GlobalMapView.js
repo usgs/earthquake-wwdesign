@@ -100,6 +100,10 @@ define([
 		return this._map;
 	};
 
+	GlobalMapView.prototype.getLayerControl = function () {
+		return this._layerControl;
+	};
+
 	GlobalMapView.prototype.render = function (locationEvent) {
 		var latitude = locationEvent.latitude,
 		    longitude = locationEvent.longitude;
