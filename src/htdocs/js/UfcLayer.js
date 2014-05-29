@@ -28,9 +28,11 @@ define([
 
 		options = Util.extend({}, DEFAULTS, options || {});
 
-		this._layerGroup = new L.LayerGroup();
+		this._layerGroup = [];
 		this._serviceUrl = options.serviceUrl;
 		this._icon = options.icon;
+		this._map = options.map;
+		this._layerControl = options.layerControl;
 
 		this._initialize();
 	};
@@ -51,12 +53,31 @@ define([
 	};
 
 	UfcLayer.prototype._onSuccess = function (response) {
-		var i, numResults = response.features.length;
+		var datasetKey, dataset, layer, feature,
+				numResults = response.features.length,
+				datasetIndexMap = [];
 
 		this._datasets = response.datasets;
 
-		for (i = 0; i < numResults; i++) {
-			this._layerGroup.addLayer(this._createMarker(response.features[i]));
+		// Set up one layer per dataset.
+		for (datasetKey in this._datasets) {
+			// Add layer.
+			layer = this._layerGroup.push(new L.LayerGroup()) - 1;
+			this._layerGroup[layer].addTo(this._map);
+			this._layerControl.addOverlay(this._layerGroup[layer],
+					this._datasets[datasetKey].shorttitle);
+
+			// Map dataset key names to a layer index.
+			datasetIndexMap[datasetKey] = layer;
+		}
+
+		// Add all of the points to one of the layers.
+		for (feature = 0; feature < numResults; feature++) {
+			// Check which datasets the points contain.
+			for (dataset in response.features[feature].properties.datasets) {
+				layer = datasetIndexMap[response.features[feature].properties.datasets[dataset].dataset];
+				this._layerGroup[layer].addLayer(this._createMarker(response.features[feature]));
+			}
 		}
 	};
 

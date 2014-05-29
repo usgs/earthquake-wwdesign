@@ -74,9 +74,7 @@ define([
 		this._map.fitBounds(this._options.defaultExtent);
 
 		// UFC Layer (TODO :: Split these?)
-		ufcController = new UfcLayer();
-		ufcController._layerGroup.addTo(this._map);
-		layerControl.addOverlay(ufcController._layerGroup, 'UFC Pins');
+		ufcController = new UfcLayer({'map': this._map, 'layerControl': layerControl});
 
 		// Add the location marker
 		this._marker = new L.Marker([0.0, 0.0], {draggable: true});
