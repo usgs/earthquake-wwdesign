@@ -66,6 +66,7 @@ define([
 		this._overlaysLoaded = false;
 		this._polyOpts = options.polyOpts;
 		this._skipRegions = [];
+		this._layerControl = options.layerControl;
 
 		this._initialize();
 	};
@@ -137,7 +138,9 @@ define([
 				overlay = new L.Polygon(info.p, this._polyOpts);
 
 				this._overlays.push(overlay);
+				this._layerControl.addOverlay(overlay, info.n);
 
+				// Enable overlay
 				if (this._map) {
 					overlay.addTo(this._map);
 				}

@@ -49,7 +49,8 @@ define([
 		this._calculator = new GlobalCalculator(options.calculator);
 
 		// Region controller. Provides overlays and bounds checking
-		this._regionController = new RegionController({map: this._mapView._map});
+		this._regionController = new RegionController({map: _this._mapView.getMap(),
+				layerControl: this._mapView.getLayerControl()});
 
 		// Bind listeners
 		this._mapView.on('location-change', this.onLocationChange, this);
@@ -68,7 +69,7 @@ define([
 		this._calculator.on('no-data', function (/*results*/) {
 			var error_message = 'The requested location returned no results.';
 			_this._mapView._popup.setContent(error_message)
-				.openOn(_this._mapView._map);
+				.openOn(_this._mapView.getMap());
 		});
 	};
 
