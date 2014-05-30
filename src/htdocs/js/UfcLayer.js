@@ -53,7 +53,7 @@ define([
 	};
 
 	UfcLayer.prototype._onSuccess = function (response) {
-		var datasetKey, dataset, layer, feature,
+		var datasetKey, dataset, layer, feature, datasetsCopy,
 				numResults = response.features.length,
 				datasetIndexMap = [];
 
@@ -73,9 +73,19 @@ define([
 
 		// Add all of the points to one of the layers.
 		for (feature = 0; feature < numResults; feature++) {
-			// Check which datasets the points contain.
-			for (dataset in response.features[feature].properties.datasets) {
-				layer = datasetIndexMap[response.features[feature].properties.datasets[dataset].dataset];
+			// Make a copy of this feature's data, because the next section will destroy it.
+			datasetsCopy = response.features[feature].properties.datasets.slice(0);
+		
+			// Iterate through datasets, and make one marker per feature-dataset combination.
+			for (dataset in datasetsCopy) {
+				// Get the layer number mapped to the dataset ID string.
+				layer = datasetIndexMap[datasetsCopy[dataset].dataset];
+
+				// Make sure only this dataset appears in the marker.
+				response.features[feature].properties.datasets = [datasetsCopy[dataset]];
+				if (feature == 0) { console.debug(response.features[feature].properties.datasets); }
+
+				// Add marker to map layer.
 				this._layerGroup[layer].addLayer(this._createMarker(response.features[feature]));
 			}
 		}
