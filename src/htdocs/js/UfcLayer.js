@@ -72,7 +72,7 @@ define([
 			}
 
 			this._layerControl.addOverlayRadio(this._layerGroup[layer],
-				this._datasets[datasetKey].shorttitle, "Pins");
+				this._datasets[datasetKey].shorttitle, 'Pins');
 
 			// Map dataset key names to a layer index.
 			datasetIndexMap[datasetKey] = layer;

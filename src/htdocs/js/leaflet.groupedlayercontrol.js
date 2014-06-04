@@ -4,6 +4,14 @@
 // Original project can be found at:
 //         https://github.com/ismyrnow/Leaflet.groupedlayercontrol
 
+/* global define */
+define([
+	'leaflet'
+], function (
+	L
+) {
+	'use strict';
+
 L.Control.GroupedLayers = L.Control.extend({
 	options: {
 		collapsed: true,
@@ -12,6 +20,7 @@ L.Control.GroupedLayers = L.Control.extend({
 	},
 
 	initialize: function (baseLayers, groupedOverlays, options) {
+		var i, j;
 		L.Util.setOptions(this, options);
 
 		this._layers = {};
@@ -21,7 +30,7 @@ L.Control.GroupedLayers = L.Control.extend({
 		this._domGroups = [];
 		this._groupFirstLayer = [];
 
-		for (var i in baseLayers) {
+		for (i in baseLayers) {
 			this._addLayer(baseLayers[i], i);
 		}
 
@@ -198,8 +207,7 @@ L.Control.GroupedLayers = L.Control.extend({
 	// IE7 bugs out if you create a radio dynamically, so you have to
 	// do it this hacky way (see http://bit.ly/PqYLBe)
 	_createRadioElement: function (name, checked) {
-		var radioHtml = '<input type="radio" class="leaflet-control-layers-selector" name="'
-				+ name + '"';
+		var radioHtml = '<input type="radio" class="leaflet-control-layers-selector" name="' + name + '"';
 		if (checked) {
 			radioHtml += ' checked="checked"';
 		}
@@ -213,17 +221,17 @@ L.Control.GroupedLayers = L.Control.extend({
 
 	_addItem: function (obj) {
 		var label = document.createElement('label'),
-				input,layer
+				input, container,
 				checked = this._map.hasLayer(obj.layer);
 
-		if (obj.overlay && obj.type != 'radio') {
+		if (obj.overlay && obj.type !== 'radio') {
 			input = document.createElement('input');
 			input.type = 'checkbox';
 			input.className = 'leaflet-control-layers-selector';
 			input.defaultChecked = checked;
 		} else if (obj.overlay) {
 			// For radio buttons, only select it if it's the first layer per group.
-			checked = (this._groupFirstLayer[obj.group.id] == obj.name);
+			checked = (this._groupFirstLayer[obj.group.id] === obj.name);
 			input = this._createRadioElement('leaflet-radio-overlay-'+obj.group.name,
 					checked);
 		} else {
@@ -306,6 +314,7 @@ L.Control.GroupedLayers = L.Control.extend({
 L.control.groupedLayers = function (baseLayers, groupedOverlays, options) {
 	return new L.Control.GroupedLayers(baseLayers, groupedOverlays, options);
 };
+});
 
 // Copyright 2013 Ishmael Smyrnow
 // 
