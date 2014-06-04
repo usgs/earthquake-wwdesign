@@ -3,14 +3,14 @@ define([
 	'util/Util',
 	'util/Events',
 	'leaflet',
-
+	'leaflet.groupedlayercontrol',
 	'UfcLayer',
 	'ResultFormatter'
 ], function (
 	Util,
 	Events,
 	L,
-
+	groupedlayercontrol,
 	UfcLayer,
 	ResultFormatter
 ) {
@@ -44,7 +44,7 @@ define([
 	GlobalMapView.prototype._initialize = function () {
 
 		var _this = this,
-		    layerControl = new L.Control.Layers(),
+		    layerControl = new L.Control.GroupedLayers(),
 		    satellite = null,
 		    street = null,
 		    greyscale = null,

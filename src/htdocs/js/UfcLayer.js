@@ -55,7 +55,8 @@ define([
 	UfcLayer.prototype._onSuccess = function (response) {
 		var datasetKey, dataset, layer, feature, datasetsCopy,
 				numResults = response.features.length,
-				datasetIndexMap = [];
+				datasetIndexMap = [],
+				firstLayer = true;
 
 		this._datasets = response.datasets;
 
@@ -63,9 +64,15 @@ define([
 		for (datasetKey in this._datasets) {
 			// Add layer.
 			layer = this._layerGroup.push(new L.LayerGroup()) - 1;
-			this._layerGroup[layer].addTo(this._map);
-			this._layerControl.addOverlay(this._layerGroup[layer],
-					this._datasets[datasetKey].shorttitle);
+
+			if (firstLayer)
+			{
+				this._layerGroup[layer].addTo(this._map);
+				firstLayer = false;
+			}
+
+			this._layerControl.addOverlayRadio(this._layerGroup[layer],
+				this._datasets[datasetKey].shorttitle, "Pins");
 
 			// Map dataset key names to a layer index.
 			datasetIndexMap[datasetKey] = layer;
@@ -83,7 +90,6 @@ define([
 
 				// Make sure only this dataset appears in the marker.
 				response.features[feature].properties.datasets = [datasetsCopy[dataset]];
-				if (feature == 0) { console.debug(response.features[feature].properties.datasets); }
 
 				// Add marker to map layer.
 				this._layerGroup[layer].addLayer(this._createMarker(response.features[feature]));

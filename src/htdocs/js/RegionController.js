@@ -138,7 +138,7 @@ define([
 				overlay = new L.Polygon(info.p, this._polyOpts);
 
 				this._overlays.push(overlay);
-				this._layerControl.addOverlay(overlay, info.n);
+				this._layerControl.addOverlay(overlay, info.n, "Regions");
 
 				// Enable overlay
 				if (this._map) {
