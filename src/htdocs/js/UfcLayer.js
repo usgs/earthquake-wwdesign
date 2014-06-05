@@ -82,7 +82,7 @@ define([
 		for (feature = 0; feature < numResults; feature++) {
 			// Make a copy of this feature's data, because the next section will destroy it.
 			datasetsCopy = response.features[feature].properties.datasets.slice(0);
-		
+
 			// Iterate through datasets, and make one marker per feature-dataset combination.
 			for (dataset in datasetsCopy) {
 				// Get the layer number mapped to the dataset ID string.
