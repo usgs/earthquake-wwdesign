@@ -54,9 +54,10 @@ define([
 
 	UfcLayer.prototype._onSuccess = function (response) {
 		var datasetKey, dataset, layer, feature, datasetsCopy,
-				numResults = response.features.length,
-				datasetIndexMap = [],
-				firstLayer = true;
+		    numResults = response.features.length,
+		    datasetIndexMap = [],
+		    allPinsLayer = null,
+		    firstLayer = true;
 
 		this._datasets = response.datasets;
 
@@ -65,10 +66,11 @@ define([
 			// Add layer.
 			layer = this._layerGroup.push(new L.LayerGroup()) - 1;
 
-			if (firstLayer)
-			{
+			if (firstLayer) {
 				this._layerGroup[layer].addTo(this._map);
 				firstLayer = false;
+			} else {
+				allPinsLayer = new L.LayerGroup();
 			}
 
 			this._layerControl.addOverlayRadio(this._layerGroup[layer],
@@ -80,20 +82,33 @@ define([
 
 		// Add all of the points to one of the layers.
 		for (feature = 0; feature < numResults; feature++) {
-			// Make a copy of this feature's data, because the next section will destroy it.
+			if (allPinsLayer) {
+				allPinsLayer.addLayer(this._createMarker(response.features[feature]));
+			}
+
+			// Make a copy of this feature's data, because the next section will
+			// destroy it.
 			datasetsCopy = response.features[feature].properties.datasets.slice(0);
 
-			// Iterate through datasets, and make one marker per feature-dataset combination.
+			// Iterate through datasets, and make one marker per feature-dataset
+			// combination.
 			for (dataset in datasetsCopy) {
 				// Get the layer number mapped to the dataset ID string.
 				layer = datasetIndexMap[datasetsCopy[dataset].dataset];
 
 				// Make sure only this dataset appears in the marker.
-				response.features[feature].properties.datasets = [datasetsCopy[dataset]];
+				response.features[feature].properties.datasets =
+						[datasetsCopy[dataset]];
 
 				// Add marker to map layer.
-				this._layerGroup[layer].addLayer(this._createMarker(response.features[feature]));
+				this._layerGroup[layer].addLayer(this._createMarker(
+						response.features[feature]));
 			}
+		}
+
+		if (allPinsLayer) {
+			this._layerGroup.push(allPinsLayer);
+			this._layerControl.addOverlayRadio(allPinsLayer, 'All Pin Data', 'Pins');
 		}
 	};
 
