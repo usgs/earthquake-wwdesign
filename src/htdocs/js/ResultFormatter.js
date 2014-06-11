@@ -10,7 +10,8 @@ define([
 		var results = data.results,
 		    i = 0, numResults = results.length,
 		    el = document.createElement('section'),
-		    summaryMarkup = null, infoMarkup = null, tabs = [null], tabWidget = null;
+		    summaryMarkup = null, infoMarkup = null, tabs = [null],
+		    tabWidget = null;
 
 		if (numResults === 1) {
 			// Only one result. Skip summary tab.
@@ -52,7 +53,9 @@ define([
 			infoMarkup = [
 				'<p class="description">',
 					'The classification is based on the ',
-					'<a href="https://github.com/usgs/earthquake-wwdesign/wiki/Worldwide-Seismic-Design-Tool-Documentation">',
+					'<a href="https://github.com/usgs/earthquake-wwdesign/wiki/', 
+							'Worldwide-Seismic-Design-Tool-Documentation#sources-of-',
+							'seismic-design-parameter-values">',
 					'recency and breadth of the seismic hazard analysis</a> ',
 					'from each underlying source.',
 				'</p>'
