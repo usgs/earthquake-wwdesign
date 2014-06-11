@@ -233,7 +233,7 @@ define([
 				input.defaultChecked = checked;
 			} else if (obj.overlay) {
 				// For radio buttons, only select it if it's the first layer per group.
-				checked = (this._groupFirstLayer[obj.group.id] === obj.name);
+				//checked = (this._groupFirstLayer[obj.group.id] === obj.name);
 				input = this._createRadioElement('leaflet-radio-overlay-'+
 						obj.group.name, checked);
 			} else {

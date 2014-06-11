@@ -67,9 +67,8 @@ define([
 			layer = this._layerGroup.push(new L.LayerGroup()) - 1;
 
 			if (firstLayer) {
-				this._layerGroup[layer].addTo(this._map);
 				firstLayer = false;
-			} else {
+			} else if (!allPinsLayer) {
 				allPinsLayer = new L.LayerGroup();
 			}
 
@@ -107,9 +106,14 @@ define([
 		}
 
 		if (allPinsLayer) {
+			allPinsLayer.addTo(this._map);
 			this._layerGroup.push(allPinsLayer);
 			this._layerControl.addOverlayRadio(allPinsLayer, 'All Pin Data', 'Pins');
+		} else if (this._layerGroup.length) {
+			this._layerGroup[0].addTo(this._map);
 		}
+
+		this._layerControl._update();
 	};
 
 	UfcLayer.prototype._onError = function (/*error*/) {
