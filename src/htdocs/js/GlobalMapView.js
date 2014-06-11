@@ -74,7 +74,10 @@ define([
 		this._map.fitBounds(this._options.defaultExtent);
 
 		// UFC Layer (TODO :: Split these?)
-		ufcController = new UfcLayer({'map': this._map, 'layerControl': layerControl});
+		ufcController = new UfcLayer({
+			'map': this._map,
+			'layerControl': layerControl
+		});
 
 		// Add the location marker
 		this._marker = new L.Marker([0.0, 0.0], {draggable: true});
@@ -85,7 +88,8 @@ define([
 					longitude: latlng.lng});
 		});
 
-		this._popup = new L.Popup({autoPan:false,minWidth:350,maxWidth:1000,maxHeight:250});
+		this._popup = new L.Popup({autoPan:false, minWidth:350,
+				maxWidth:1000, maxHeight:250});
 		this._popup.setContent(this._options.noLocationText);
 		this._marker.bindPopup(this._popup);
 
@@ -118,8 +122,8 @@ define([
 	};
 
 	GlobalMapView.prototype.showResults = function (results) {
-		this._popup.setContent(ResultFormatter.getMarkup(results))
-		    .openOn(this._map);
+		this._popup.setContent(ResultFormatter.getMarkup(results)).openOn(
+				this._map);
 	};
 
 	return GlobalMapView;

@@ -37,7 +37,8 @@ class PinDataFactory {
 	 * @return An array of available data. Data is structured grouped by site.
 	 */
 	public function getPinData () {
-		$query = 'SELECT * FROM ' . $this->datatable . ' ORDER BY name, metadata_id';
+		$query = 'SELECT * FROM ' . $this->datatable .
+				' ORDER BY name, metadata_id';
 		$pin = null;
 		$data = array();
 		$results = $this->db->query($query);

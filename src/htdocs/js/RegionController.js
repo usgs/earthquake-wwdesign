@@ -97,15 +97,6 @@ define([
 			if (__contains(region.p, pointArr)) {
 				// Points in this region should be skipped. Send error message back.
 				return region.s;
-				// [
-				// 	'The input location [',
-				// 		point.latitude.toFixed(4), ', ',
-				// 		point.longitude.toFixed(4),
-				// 	'] falls within the boundary for &ldquo;', region.r, '&rdquo;. ',
-				// 	'There are <a href="', region.s, '" target="_blank">more accurate ',
-				// 	'results for locations within this region</a>. Please use the link ',
-				// 	'above to access those results.'
-				// ].join('');
 			}
 		}
 	};

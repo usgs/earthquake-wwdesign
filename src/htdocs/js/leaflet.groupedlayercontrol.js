@@ -123,7 +123,8 @@ define([
 
 			this._baseLayersList = L.DomUtil.create('div', className + '-base', form);
 			this._separator = L.DomUtil.create('div', className + '-separator', form);
-			this._overlaysList = L.DomUtil.create('div', className + '-overlays', form);
+			this._overlaysList = L.DomUtil.create('div', className + '-overlays',
+					form);
 
 			container.appendChild(form);
 		},
@@ -206,7 +207,9 @@ define([
 		// IE7 bugs out if you create a radio dynamically, so you have to
 		// do it this hacky way (see http://bit.ly/PqYLBe)
 		_createRadioElement: function (name, checked) {
-			var radioHtml = '<input type="radio" class="leaflet-control-layers-selector" name="' + name + '"';
+			var radioHtml = '<input type="radio" ' +
+					'class="leaflet-control-layers-selector" name="' + name + '"';
+
 			if (checked) {
 				radioHtml += ' checked="checked"';
 			}
@@ -231,8 +234,8 @@ define([
 			} else if (obj.overlay) {
 				// For radio buttons, only select it if it's the first layer per group.
 				checked = (this._groupFirstLayer[obj.group.id] === obj.name);
-				input = this._createRadioElement('leaflet-radio-overlay-'+obj.group.name,
-						checked);
+				input = this._createRadioElement('leaflet-radio-overlay-'+
+						obj.group.name, checked);
 			} else {
 				input = this._createRadioElement('leaflet-base-layers', checked);
 			}
